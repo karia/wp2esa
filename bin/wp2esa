@@ -1,0 +1,13 @@
+#! /bin/sh
+exec ruby -S -x "$0" "$@"
+#! ruby
+require_relative '../lib/Wp2esa'
+
+xmr_file = ARGV[0]
+token = ARGV[1]
+team = ARGV[2]
+
+xmr = IO.read(xmr_file)
+wp2esa = Wp2esa::Core.new
+parsed = wp2esa.parse(xmr)
+wp2esa.post(parsed, token, team)
