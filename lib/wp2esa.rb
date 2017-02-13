@@ -31,7 +31,7 @@ module Wp2esa
         }
         puts params
         client.create_post(params)
-        sleep 0.5
+        sleep 15
       end
     end
   end
