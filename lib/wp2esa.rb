@@ -24,14 +24,18 @@ module Wp2esa
       parsed_items.each do |item|
         params = {
           name:     item[:title],
-          category: 'wp2esa/' + item[:categories].join('/'),
+          category: 'fromIntra/' + item[:categories].join('_'),
           tags:     '',
           body_md:  ReverseMarkdown.convert(item[:content_encoded]),
           wip:      true
         }
         puts params
-        client.create_post(params)
-        sleep 15
+        if params[:body_md].empty?
+          puts "body is empty. skipped."
+        else
+          client.create_post(params)
+          sleep 15
+        end
       end
     end
   end
